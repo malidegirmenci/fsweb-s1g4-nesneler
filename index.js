@@ -15,8 +15,13 @@ const serpmeKahvalti = {isim: "Serpme Kahvaltı", fiyat: 16, kategori:"Kahvaltı
 */
 
 
-function MenuElemaniOlustur(/*Kodlar buraya*/){
-	/*Kodlar buraya*/
+function MenuElemaniOlustur(isim,fiyat,kategori){
+	var product = {
+		isim : isim,
+		fiyat: fiyat,
+		kategori: kategori
+	}
+	return product
 }
 
 
@@ -29,7 +34,12 @@ function MenuElemaniOlustur(/*Kodlar buraya*/){
 	3. Tüm döndürülen sonuçları konsolda gözlemleyin (console.log)
 	
 	Örnek: MenuElemaniOlustur("Karışık Pizza",5,"Pizzalar") şunu döndürür: {isim:"Karışık Pizza",fiyat:5,kategori:"Pizzalar"}
+	
+	
 */
+	console.log(MenuElemaniOlustur("Ice Latte",16,"Kahve"))
+	console.log(MenuElemaniOlustur("Ricotta",150,"Pizza"))
+	console.log(MenuElemaniOlustur("Mercimek Çorbası",40,"Çorba"))
 
 
 
@@ -50,7 +60,19 @@ const burger = {
 	isim: "Burger", 
 	fiyat: 18, 
 	kategori: "Öğle Yemeği", 
-
+	indirim(customer){
+		let bill = 0;
+		if(customer === "öğretmen"){
+			bill = this.fiyat - (this.fiyat*0.25)
+			return bill
+		}else if(customer === "öğrenci"){
+			bill = this.fiyat - (this.fiyat*0.25)
+			return bill
+		}else if(customer === "diğer"){
+			bill = this.fiyat - this.fiyat*0.10
+			return bill;
+		}
+	}
 }
 
 
@@ -70,17 +92,31 @@ const degerlendirmeler = [
 /*  Görev 3 (ototest yok):  
 	Yukarıdaki degerlendirmeler dizisini(array) kullanarak:
 	1. Sadece Ahmet'in geribildirimini konsolda görüntüleyin - fonksiyona gerek yok
+	
 */
-
+	for (let person in degerlendirmeler){
+		if(degerlendirmeler[person].isim === "Ahmet"){
+	  		console.log(degerlendirmeler[person].geribildirim);
+		}
+  	}
 
 
 /*  Görev 4 (ototest yok):  
 	Reyna'nın geribildirimi girilmemiş! Aşağıdakileri uygulayın: (fonksiyona gerek yok) 
 	1. Bu geribildirimi Reyna'nın değerlendirmesine ekleyin - "bu mekan bir harika dostum, yine de garsonun gülümsememesinden puan kırdım"
 	2. degerlendirmeler dizisini konsolda görüntüleyerek çalışmanızı kontrol edin
+	
+
 */
 
-
+	for (let person in degerlendirmeler){
+		if(degerlendirmeler[person].isim === "Reyna"){
+	  		if(degerlendirmeler[person].geribildirim === ""){
+				degerlendirmeler[person].geribildirim = "bu mekan bir harika dostum, yine de garsonun gülümsememesinden puan kırdım";
+	  		}
+	  	console.log(degerlendirmeler[person].geribildirim);
+		}
+  	}
 
 /*  Görev 5: 
 	isim, puan, geribildirim'i içeren bir değerlendirme nesnesi oluşturup, yeni değerlendirmeyi mevcut dizinin(array) sonuna ekleyip sonuç dizisini döndüren bir fonksiyon tanımlayın. 
@@ -94,9 +130,14 @@ const degerlendirmeler = [
 */
 
 
-function DegerlendirmeEkle(/*Kodlar buraya */){
-	/*Kodlar buraya */
-	
+function DegerlendirmeEkle(arr,isim,puan,geribildirim){
+	let newPerson = {
+		isim : isim,
+		puan : puan,
+		geribildirim : geribildirim
+	}
+	arr.push(newPerson);
+	return arr;
 }
 
 
@@ -112,9 +153,8 @@ function DegerlendirmeEkle(/*Kodlar buraya */){
 */
 
 
-function AnahtardanDegerlendirmeAl(/*Kodlar buraya*/) {
-	/*Kodlar buraya*/
-
+function AnahtardanDegerlendirmeAl(arr,index) {
+	return `${arr[index].isim} isimli kişi ${arr[index].puan} puan verdi ve şunları yazdı: ${arr[index].geribildirim}`
 }
 
 
@@ -132,8 +172,8 @@ function AnahtardanDegerlendirmeAl(/*Kodlar buraya*/) {
 */
 
 
-function SonDegerlendirmeyiAl(/*Kodlar buraya*/) {
-	/*Kodlar buraya*/
+function SonDegerlendirmeyiAl(arr) {
+	return `${arr[arr.length-1].isim} isimli kişi ${arr[arr.length-1].puan} puan verdi ve şunları yazdı: ${arr[arr.length-1].geribildirim}`
 } 
 
 
@@ -154,8 +194,15 @@ function SonDegerlendirmeyiAl(/*Kodlar buraya*/) {
 	]
 */
 
-function PuanaGoreDegerlendirmeAl(/* Kodlar buraya */) {
-    /* Kodlar buraya */
+function PuanaGoreDegerlendirmeAl(arr,minPuan) {
+	let newArr = []
+	let maxPuan = 5;
+  for(let i = 0; i < arr.length; i++){
+		if(arr[i].puan >= minPuan && arr[i].puan < maxPuan){
+			newArr.push(arr[i])
+		}
+	}
+  return newArr
 }
 
 
@@ -166,9 +213,15 @@ function PuanaGoreDegerlendirmeAl(/* Kodlar buraya */) {
 	
 */
 
-function UzunDegerlendirmeleriAl(/* Kodlar buraya */) {
-    /* Kodlar buraya */
-}
+function UzunDegerlendirmeleriAl(arr) {
+	let newArr = [];
+	  for(let person in arr){
+		if(arr[person].geribildirim.split(" ").length > 15){
+		  newArr.push(arr[person])
+		}
+	  }
+	return newArr
+  }
 
 
 /*  BONUS 3:  
@@ -189,9 +242,14 @@ function UzunDegerlendirmeleriAl(/* Kodlar buraya */) {
 */
 
 
-function arabaYapici(/* Kodlar buraya */) {
-    /* Kodlar buraya */
-    
+function arabaYapici(km) {
+    let car = {
+		counterKM : km,
+		drive(km){
+			return this.counterKM += km;
+		}
+	}
+    return car
 }
 
 
